@@ -1,0 +1,19 @@
+
+<p>{{deckId}}</p>
+<!-- 
+<div>
+  <img src={{myDraw.cards[0].image}} />
+</div> -->
+
+<div class = 'card-row'>
+  <div *ngFor='let card of cards' class='card-column' > 
+    <img src = {{card.image}}  class='card-image'/>
+  </div>
+</div>
+
+<div class='btn-tooblar m-3'>
+  <button type='button' class='btn btn-primary m-1' (click)='draw(1)'>Draw 1</button>
+  <button type='button' class='btn btn-primary m-1' (click)='draw(52)'>Draw 52</button>
+  <button type='button' class='btn btn-info m-1' (click)='shuffle()'>Shuffle</button>
+</div>
+<p>{{drawError.success?"":drawError.error}}</p>

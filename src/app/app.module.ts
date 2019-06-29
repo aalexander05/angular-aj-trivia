@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { HttpClientModule } from '@angular/common/http'
 import { TriviaService } from './trivia.service';
+import { CardsComponent } from './cards/cards.component';
+import { CardService } from './cards/card.service';
 
 
 @NgModule({
@@ -19,11 +21,12 @@ import { TriviaService } from './trivia.service';
     HttpClientModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
-      { path: 'trivia', component: AboutComponent }
+      { path: 'trivia', component: AboutComponent },
+      { path: 'cards', component: CardsComponent }
     ]) 
   ],
-  declarations: [ AppComponent, HelloComponent, MenuComponent, HomeComponent, AboutComponent ],
+  declarations: [ AppComponent, HelloComponent, MenuComponent, HomeComponent, AboutComponent, CardsComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [TriviaService]
+  providers: [TriviaService, CardService]
 })
 export class AppModule { }
