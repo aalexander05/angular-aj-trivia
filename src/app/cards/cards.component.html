@@ -12,8 +12,8 @@
 </div>
 
 <div class='btn-tooblar m-3'>
-  <button type='button' class='btn btn-primary m-1' (click)='draw(1)'>Draw 1</button>
-  <button type='button' class='btn btn-primary m-1' (click)='draw(52)'>Draw 52</button>
+  <button type='button' class='btn btn-primary m-1' (click)='draw(1)' [disabled]='remainingCardsInDeck < 1' >Draw 1</button>
+  <button type='button' class='btn btn-primary m-1' (click)='draw(remainingCardsInDeck)' [disabled]='remainingCardsInDeck < 1'>Draw Remaining {{remainingCardsInDeck}}</button>
   <button type='button' class='btn btn-info m-1' (click)='shuffle()'>Shuffle</button>
 </div>
 <p>{{drawError.success?"":drawError.error}}</p>

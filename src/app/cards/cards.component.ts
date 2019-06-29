@@ -14,7 +14,10 @@ export class CardsComponent implements OnInit {
   deckId : string;
   myDraw : Draw;
   cards : Card[] = [];
-  drawError : any = {success:true}; ;
+  remainingCardsInDeck : number;
+  drawError : any = {success:true}; 
+
+
 
   constructor(private svc : CardService) { }
 
@@ -29,6 +32,7 @@ export class CardsComponent implements OnInit {
       .subscribe( res => {
         console.log(res);
         this.deckId = res.deck_id;
+        this.remainingCardsInDeck = res.remaining;
         //this.draw(1)
       });
       return "";
@@ -42,6 +46,7 @@ export class CardsComponent implements OnInit {
           console.log(res);
           this.cards.push.apply(this.cards, res.cards);
           this.drawError = {success:true};
+          this.remainingCardsInDeck = res.remaining;
         }
         else {
           this.drawError = res;
