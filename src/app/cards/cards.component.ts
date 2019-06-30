@@ -17,16 +17,46 @@ export class CardsComponent implements OnInit {
   remainingCardsInDeck : number;
   drawError : any = {success:true}; 
 
+  cardValues : string[] = [];
+
 
 
   constructor(private svc : CardService) { }
 
   ngOnInit() {
+    this.cardValues = this.makeValues();
+    console.log(this.cardValues);
     console.log("hello");
     this.shuffle();
     //this.draw(1);
   }
+
+  makeValues() : string[] {
+    var vals : string[] = [];
+    for (var suit of ['S', 'C', 'D', 'H']) {
+      for (var rank of ['2', '3', '4', '5', '6', '7', '8', '9', '0', 'J', 'Q', 'K', 'A']) {
+        vals.push(rank + suit);
+      }
+    }
+    return vals;
+  }
+
+  sortHand(cards : Card[]) {
+    cards.sort(this.compare.bind(this));
+  }
   
+  compare(a : Card , b : Card) : number {
+    var vals = this.makeValues();
+    var valA = a.code;
+    var valB = b.code;
+    var iA = vals.findIndex(val => val === valA);
+    var iB = vals.findIndex(val => val === valB);
+
+    if (iA < iB) { return -1; }
+    if (iA > iB) { return  1; }
+    else         { return  0; }
+  }
+
   shuffle() : string {
     this.svc.shuffle()
       .subscribe( res => {
