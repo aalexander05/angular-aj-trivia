@@ -1,22 +1,24 @@
 
-<p>{{deckId}}</p>
+<p>deck_id: {{deckId}}</p>
 <!-- 
 <div>
   <img src={{myDraw.cards[0].image}} />
 </div> -->
 
 <div class = 'card-row'>
-  <div *ngFor='let card of cards' class='card-column' > 
-    <img src = {{card.image}}  class='card-image'/>
+  <div *ngFor='let card of cards' class='card-column'> 
+    <img src = {{card.image}}  class='card-image' (click)='removeById(card.id)'/>
   </div>
 </div>
 
+<p>Remaining in currnet deck: {{remainingCardsInDeck}}</p>
 <div class='btn-tooblar m-3'>
   <button type='button' class='btn btn-primary m-1' (click)='draw(1)' [disabled]='remainingCardsInDeck < 1' >Draw 1</button>
-  <button type='button' class='btn btn-primary m-1' (click)='draw(remainingCardsInDeck)' [disabled]='remainingCardsInDeck < 1'>Draw Remaining {{remainingCardsInDeck}}</button>
+  <button type='button' class='btn btn-primary m-1' (click)='draw(remainingCardsInDeck)' [disabled]='remainingCardsInDeck < 1'>Draw Remaining</button>
   <button type='button' class='btn btn-primary m-1' (click)='draw(14)' [disabled]='remainingCardsInDeck < 1'>Draw 14</button>
-  <button type='button' class='btn btn-info m-1' (click)='shuffle()'>Shuffle</button>
+  <button type='button' class='btn btn-success m-1' (click)='shuffle()'>Shuffle new deck</button>
   <button type='button' class='btn btn-info m-1' (click)='sortHand(cards)'>Sort</button>
+  <button type='button' class='btn btn-warning m-1' (click)='clearCards()'>Clear</button>
 </div>
 <p>{{drawError.success?"":drawError.error}}</p>
 

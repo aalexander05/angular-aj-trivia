@@ -33,10 +33,10 @@ export class CardsComponent implements OnInit {
 
   makeValues() : string[] {
     var vals : string[] = [];
-    for (var suit of ['S', 'C', 'D', 'H']) {
-      for (var rank of ['2', '3', '4', '5', '6', '7', '8', '9', '0', 'J', 'Q', 'K', 'A']) {
-        vals.push(rank + suit);
-      }
+    for (var rank of ['3', '4', '5', '6', '7', '8', '9', '0', 'J', 'Q', 'K', 'A', '2']) {
+      for (var suit of ['S', 'C', 'D', 'H']) {
+          vals.push(rank + suit);
+        }
     }
     return vals;
   }
@@ -68,13 +68,21 @@ export class CardsComponent implements OnInit {
       return "";
   }
 
+  addCardsToList(list : Card[], cards : Card[]) {
+    for (var c of cards) {
+      c.id = this.nextId(list);
+      list.push(c);
+    }
+  }
+
   draw(numOfCards) : void {
     this.svc.draw(this.deckId, numOfCards)
       .subscribe( res => {
         if (res.success) {
           this.myDraw = res;
           console.log(res);
-          this.cards.push.apply(this.cards, res.cards);
+          //this.cards.push.apply(this.cards, res.cards);
+          this.addCardsToList(this.cards, res.cards);
           this.drawError = {success:true};
           this.remainingCardsInDeck = res.remaining;
         }
@@ -82,7 +90,25 @@ export class CardsComponent implements OnInit {
           this.drawError = res;
           console.log(this.drawError);
         }
-        
       });
   }
+
+  removeById(id : number) {
+    this.cards = this.cards.filter(c => c.id !== id)
+  }
+
+  log(message) : void {
+    console.log(message);
+  }
+
+  clearCards() : void {
+    this.cards = [];
+  }
+
+  nextId(list: Card[]) : number {
+    //return Math.max.apply(Math, list.map(function(o) { return o.id; }))
+    const nextId = Math.max(...list.map(o => o.id), 0);
+    return nextId + 1;
+  }
+
 }
