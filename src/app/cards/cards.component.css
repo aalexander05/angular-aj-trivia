@@ -14,3 +14,9 @@
 .card-image {
   width: 8em;
 }
+
+.card-selected {
+  border: solid;
+  border-color: blue;
+  border-width: 3px;
+}

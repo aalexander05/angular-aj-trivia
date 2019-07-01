@@ -4,4 +4,5 @@ export interface Card {
   suit: string;
   code: string;
   id: number;
+  selected: boolean;
 }

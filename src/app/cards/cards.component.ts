@@ -18,9 +18,7 @@ export class CardsComponent implements OnInit {
   drawError : any = {success:true}; 
 
   cardValues : string[] = [];
-
-
-
+  
   constructor(private svc : CardService) { }
 
   ngOnInit() {
@@ -109,6 +107,10 @@ export class CardsComponent implements OnInit {
     //return Math.max.apply(Math, list.map(function(o) { return o.id; }))
     const nextId = Math.max(...list.map(o => o.id), 0);
     return nextId + 1;
+  }
+
+  selectCard(card:Card) {
+    card.selected = !card.selected;
   }
 
 }
