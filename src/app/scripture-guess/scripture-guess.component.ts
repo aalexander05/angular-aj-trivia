@@ -12,23 +12,25 @@ import { ScriptureService } from './scripture.service'
 export class ScriptureGuessComponent implements OnInit {
 
   scripture : Scripture;
-  books : any[];
+  pagebooks : any[];
   message: string = '';
 
   constructor(private scv : ScriptureService) { }
 
   getScripture() : void {
     console.log('getting scripture');
-    this.scv.getRandomScripture().subscribe( scripture => {
+    this.scv.getRandomScripture().then( (scripture) => {
+      console.log('we got a scripture');
       console.log(scripture);
       this.scripture = scripture;
     })
   }
 
   getBooks() : void {
-    this.scv.getBookInfo().subscribe( books => { 
-      console.log('GETTING BOOKS');
-      this.books = books; 
+    console.log('GETTING BOOKS');
+    this.scv.getBookInfo().then( (books) => { 
+      console.log('We GOT BOOKS');
+      this.pagebooks = books; 
     } ) ;
   }
 

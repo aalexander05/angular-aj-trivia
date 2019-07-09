@@ -16,50 +16,56 @@ export class ScriptureService {
   currentVerse: number;
 
   constructor(private http: HttpClient) { 
-    this.getBookInfo().subscribe( data =>
-    {
-      console.log(data);
-      this.books = data;
-    });
-  }
-
-  getBookInfo() : Observable<any> {
-    return this.http.get('./assets/bible-info.json');
-  }
-
-  getRandomBook() : void {
-    this.currentBook = this.books[Math.floor(Math.random()*this.books.length)];
-
-    this.currentChapter = Math.floor(Math.random() * this.currentBook.numberOfBooks + 1)
-
-
-  }
-
-  getHighestVerseNumberInBook(bookName: string) : number{
-    var highestVerse : number = 0;
-    this.getScripture(this.currentBook.bookName, this.currentChapter, 0, '').subscribe( data => {
-      console.log(data.verses);
-      highestVerse = Math.max(...data.verses.map(o => o.verse), 0);
-      console.log( `the highest verse of ${this.currentBook.bookName} ${this.currentChapter} is ${highestVerse}`);
-    return highestVerse;
-    });
     
   }
 
-  getRandomScripture() : Observable<Scripture> {
-    this.getRandomBook();
+  getBookInfo() : Promise<any> {
+    return this.http.get('./assets/bible-info.json').toPromise();
+  }
 
-    this.currentVerse = Math.floor(Math.random() * this.currentChapter + 1)
+  getRandomBook() : void {
+    console.log('do you like books?')
+    
+  }
+
+  async getHighestVerseNumberInBook() : Promise<number> {
+    var highestVerse : number = 0;
+    let scripture = await this.getScripture(this.currentBook.bookName, this.currentChapter, 0, '');
+
+    highestVerse = Math.max(...scripture.verses.map(o => o.verse), 0);
+    console.log( `the highest verse of ${this.currentBook.bookName} ${this.currentChapter} is ${highestVerse}`);
+
+    return highestVerse;
+
+    // highestVerse = Math.max(...data.verses.map(o => o.verse), 0);
+    //   
+    // 
+    // });
+    
+  }
+
+  async getRandomScripture() : Promise<Scripture> {
+    this.books = await this.getBookInfo();
+    console.log('what is thing?');
+    console.log(this.books);
+    this.currentBook = this.books[Math.floor(Math.random()*this.books.length)];
+    console.log(this.currentBook);
+    this.currentChapter = Math.floor(Math.random() * this.currentBook.numberOfBooks + 1);
+
+    let verse = await this.getHighestVerseNumberInBook();
+
+    this.currentVerse = Math.floor(Math.random() * verse + 1)
     console.log(`RANDOM VERSE ${this.currentVerse}`);
 
+    //return this.getScripture("Genesis", 1,1,'');
     return this.getScripture(this.currentBook.bookName, this.currentChapter, this.currentVerse, '');
+    
+    
   }
   
-
-
-  getScripture(book: string, chapter: number, verse: number, translation: string) : Observable<Scripture> {
+  getScripture(book: string, chapter: number, verse: number, translation: string) : Promise<Scripture> {
     var url = this.baseUrl;
-    var chapterValue :string = chapter === 1 ? '':chapter.toString();
+    var chapterValue :string = chapter === 0 ? '':chapter.toString();
     var verseValue :string = verse === 0 ? '' : ':' + verse;
 
     url = url + book + chapterValue + verseValue;
@@ -68,7 +74,7 @@ export class ScriptureService {
       url = url + '?translation=' + translation;
     }
     console.log(url);
-    return this.http.get<Scripture>(url);
+    return this.http.get<Scripture>(url).toPromise();
 
   }
 
