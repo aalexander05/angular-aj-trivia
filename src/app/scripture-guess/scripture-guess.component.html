@@ -1,0 +1,14 @@
+
+<br />
+
+<button type='button' class='btn btn-outline-info' (click)='reset()'>Get Random Scripture</button>
+<p *ngIf='message === "correct"'> {{scripture.reference}}</p>
+<h3> {{scripture.text}}</h3>
+
+<p>{{message}}</p>
+
+<div style='display: block;'>
+  
+<button type='button' class='btn btn-outline-info m-1' *ngFor='let book of books' (click)='checkScripture(book.bookName)' >{{book.bookName}}</button>
+
+</div>

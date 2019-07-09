@@ -13,6 +13,8 @@ import { TriviaService } from './trivia.service';
 import { CardsComponent } from './cards/cards.component';
 import { CardService } from './cards/card.service';
 import { ReactiveComponent } from './reactive/reactive.component';
+import { ScriptureGuessComponent } from './scripture-guess/scripture-guess.component';
+import { ScriptureService } from './scripture-guess/scripture.service';
 
 
 @NgModule({
@@ -25,11 +27,12 @@ import { ReactiveComponent } from './reactive/reactive.component';
       { path: 'home', component: HomeComponent },
       { path: 'trivia', component: AboutComponent },
       { path: 'cards', component: CardsComponent },
-      { path: 'reactive', component: ReactiveComponent}
+      { path: 'reactive', component: ReactiveComponent},
+      { path: 'guess-that-scripture', component: ScriptureGuessComponent }
     ]) 
   ],
-  declarations: [ AppComponent, HelloComponent, MenuComponent, HomeComponent, AboutComponent, CardsComponent, ReactiveComponent ],
+  declarations: [ AppComponent, HelloComponent, MenuComponent, HomeComponent, AboutComponent, CardsComponent, ReactiveComponent, ScriptureGuessComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [TriviaService, CardService]
+  providers: [TriviaService, CardService, ScriptureService]
 })
 export class AppModule { }
