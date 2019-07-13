@@ -14,3 +14,17 @@ export interface Scripture {
   translation_name: string;
   translation_note: string;
 }
+
+export interface CuratedScripture {
+  book: string;
+  chapter: number;
+  verse: number;
+
+}
+
+export interface GameMode {
+
+  answerCount: number;
+  curatedScriptures: CuratedScripture[];
+
+}

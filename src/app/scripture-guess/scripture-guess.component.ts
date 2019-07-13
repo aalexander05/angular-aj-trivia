@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Scripture } from './scripture';
+import { Scripture, GameMode } from './scripture';
 
 import { ScriptureService } from './scripture.service'
 
@@ -15,6 +15,10 @@ export class ScriptureGuessComponent implements OnInit {
   pagebooks : any[];
   message: string = '';
 
+  gameMode : GameMode = {
+    answerCount : 4
+  };
+
   constructor(private scv : ScriptureService) { }
 
   getScripture() : void {
@@ -23,16 +27,24 @@ export class ScriptureGuessComponent implements OnInit {
       console.log('we got a scripture');
       console.log(scripture);
       this.scripture = scripture;
+      this.getBooks();
     })
   }
 
   getBooks() : void {
     console.log('GETTING BOOKS');
-    this.scv.getBookInfo().then( (books) => { 
+    // this.scv.getBookInfo().then( (books) => { 
+    //   console.log('We GOT BOOKS');
+    //   this.pagebooks = books; 
+    // } ) ;
+    let correctAnswer = this.scripture.verses[0].book_name;
+    this.scv.getAnswerOptions(this.gameMode.answerCount, correctAnswer).then( (books) => { 
       console.log('We GOT BOOKS');
+      console.log(books);
       this.pagebooks = books; 
     } ) ;
   }
+
 
   checkScripture(bookName:string) : void {
     console.log(`checking ${bookName} against ${this.scripture.verses[0].book_name}`)
@@ -46,7 +58,7 @@ export class ScriptureGuessComponent implements OnInit {
 
   ngOnInit() {
     this.getScripture();
-    this.getBooks();
+    //this.getBooks();
   }
 
 }

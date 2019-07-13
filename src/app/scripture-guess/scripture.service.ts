@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/observable';
 
-import { Scripture, Verse } from './scripture';
+import { Scripture, Verse, CuratedScripture, GameMode } from './scripture';
 
 @Injectable()
 export class ScriptureService {
@@ -14,6 +14,8 @@ export class ScriptureService {
   currentBook: any;
   currentChapter: number;
   currentVerse: number;
+
+
 
   constructor(private http: HttpClient) { 
     
@@ -36,11 +38,6 @@ export class ScriptureService {
     console.log( `the highest verse of ${this.currentBook.bookName} ${this.currentChapter} is ${highestVerse}`);
 
     return highestVerse;
-
-    // highestVerse = Math.max(...data.verses.map(o => o.verse), 0);
-    //   
-    // 
-    // });
     
   }
 
@@ -78,6 +75,21 @@ export class ScriptureService {
 
   }
 
+  async getAnswerOptions(answerCount: number, correctAnswer: string) : Promise<string[]> {
+    var answers: string[] = [correctAnswer];
+    let books = await this.getBookInfo();
+    let countToAdd = answerCount - 1;
 
+    for (var i = 0; i < countToAdd; i++) {
+      var bookAnswer = correctAnswer;
+      while (bookAnswer === correctAnswer) {
+        bookAnswer = this.books[Math.floor(Math.random()*this.books.length)].bookName;
+      }
+      answers.push(bookAnswer);
+    }
+
+    return answers;
+    
+  }
 
 }
