@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Scripture, GameMode } from './scripture';
 
@@ -13,26 +13,35 @@ export class ScriptureGuessComponent implements OnInit {
 
   scripture : Scripture;
   pagebooks : any[];
-  message: string = '';
+  message: string = 'incorrect';
+  changingScripture = false;
+  changingAnswers = false;
+  answered = false
 
-  gameMode : GameMode = {
-    answerCount : 4
+  @Input() gameMode : GameMode = {
+    answerCount : 4,
+    curatedScriptures: []
   };
 
   constructor(private scv : ScriptureService) { }
 
   getScripture() : void {
+    this.changingScripture = true;
+    this.changingAnswers = true;
+    //this.pagebooks = [];
     console.log('getting scripture');
     this.scv.getRandomScripture().then( (scripture) => {
       console.log('we got a scripture');
       console.log(scripture);
       this.scripture = scripture;
       this.getBooks();
+      this.changingScripture = false;
     })
   }
 
   getBooks() : void {
     console.log('GETTING BOOKS');
+    
     // this.scv.getBookInfo().then( (books) => { 
     //   console.log('We GOT BOOKS');
     //   this.pagebooks = books; 
@@ -42,18 +51,29 @@ export class ScriptureGuessComponent implements OnInit {
       console.log('We GOT BOOKS');
       console.log(books);
       this.pagebooks = books; 
+      this.changingAnswers = false
     } ) ;
   }
 
 
   checkScripture(bookName:string) : void {
+    this.answered = true;
     console.log(`checking ${bookName} against ${this.scripture.verses[0].book_name}`)
     this.message = this.scripture.verses[0].book_name.includes(bookName) ? 'correct' : 'incorrect';
   }
 
   reset() : void{
-    this.message = '';
+    //this.message = '';
     this.getScripture();
+    this.answered = false;
+  }
+
+  getScriptureClasses() : string {
+    return this.changingScripture ? 'animated fadeOut' : 'animated fadeIn'
+  }
+
+  getButtonClasses() : string {
+    return this.changingAnswers ? 'animated fadeOut' : 'animated fadeIn'
   }
 
   ngOnInit() {

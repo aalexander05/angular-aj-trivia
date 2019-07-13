@@ -79,12 +79,12 @@ export class ScriptureService {
     var answers: string[] = [correctAnswer];
     let books = await this.getBookInfo();
     let countToAdd = answerCount - 1;
-
+    var bookAnswer;
     for (var i = 0; i < countToAdd; i++) {
-      var bookAnswer = correctAnswer;
-      while (bookAnswer === correctAnswer) {
+      do {
         bookAnswer = this.books[Math.floor(Math.random()*this.books.length)].bookName;
       }
+      while (answers.includes(bookAnswer))
       answers.push(bookAnswer);
     }
 

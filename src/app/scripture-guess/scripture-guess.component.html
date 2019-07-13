@@ -1,16 +1,19 @@
 
 <br />
 
-<button type='button' class='btn btn-outline-info' (click)='reset()'>Get Random Scripture</button>
-<p *ngIf='message === "correct"'> {{scripture.reference}}</p>
-<h3 *ngIf='scripture' > {{scripture.text}}</h3>
+<div style='text-align: center;' class='m-1'>
+  <button type='button' class='btn btn-outline-info' (click)='reset()'>Get Random Scripture</button>
+</div>
 
-<p>{{message}}</p>
+<p [style.visibility]="message === 'correct'?'':'hidden'"> {{scripture.reference}}</p>
+<h3 *ngIf='scripture' [ngClass]='getScriptureClasses()'> {{scripture.text}}</h3>
 
-<div style='display: block;'>
+<p [style.visibility]="answered?'':'hidden'">{{message}}</p>
+
+<div style='display: block;text-align: center;'>
   
-<button type='button' class='btn btn-outline-info m-1' *ngFor='let book of pagebooks' (click)='checkScripture(book)' >{{book}}</button>
+<button type='button' class='btn btn-outline-info m-1' [ngClass]='getButtonClasses()' *ngFor='let book of pagebooks' (click)='checkScripture(book)' >{{book}}</button>
 
 <br/>
-<input type='text' [(ngModel)]='gameMode.answerCount' value='4' />
+<!-- <input type='text' [(ngModel)]='gameMode.answerCount' value='4' /> -->
 </div>
