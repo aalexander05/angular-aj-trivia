@@ -1,6 +1,9 @@
 <br/>
+<div>
 
-<app-scripture-guess *ngIf='started' [gameMode]='gameMode' ></app-scripture-guess>
-<div *ngIf='!started' >
-  <button type='button' class='btn btn-primary' (click)='start()'>Quick Play</button>  
+  <app-scripture-guess *ngIf='started' [gameMode]='gameMode' ></app-scripture-guess>
+  <div *ngIf='!started' >
+    <button type='button' class='btn btn-primary' (click)='start()'>Quick Play</button>  
+  </div>
+
 </div>

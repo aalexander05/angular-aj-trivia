@@ -2,13 +2,18 @@
 <br />
 
 <div style='text-align: center;' class='m-1'>
-  <button type='button' class='btn btn-outline-info' (click)='reset()'>Get Random Scripture</button>
+  <button type='button' class='btn btn-outline-info' (click)='reset()'>New Scripture</button>
+
+  <p [style.visibility]="message === 'Correct!'?'':'hidden'"> {{scripture.reference}}</p>
+  <h3 *ngIf='scripture' [ngClass]='getScriptureClasses()' style='text-align:center;'> {{scripture.text}}</h3>
+
+  <p 
+    [style.font-size.pt]='20'
+    [style.visibility]="answered?'':'hidden'"
+    [style.color]="message === 'Correct!'?'green':'red'"
+    [ngClass]='getMessageClasses()'>{{message}}</p>
 </div>
 
-<p [style.visibility]="message === 'correct'?'':'hidden'"> {{scripture.reference}}</p>
-<h3 *ngIf='scripture' [ngClass]='getScriptureClasses()'> {{scripture.text}}</h3>
-
-<p [style.visibility]="answered?'':'hidden'">{{message}}</p>
 
 <div style='display: block;text-align: center;'>
   

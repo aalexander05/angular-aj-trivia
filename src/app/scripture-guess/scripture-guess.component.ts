@@ -16,7 +16,7 @@ export class ScriptureGuessComponent implements OnInit {
   message: string = 'incorrect';
   changingScripture = false;
   changingAnswers = false;
-  answered = false
+  answered = false;
 
   @Input() gameMode : GameMode = {
     answerCount : 4,
@@ -28,6 +28,7 @@ export class ScriptureGuessComponent implements OnInit {
   getScripture() : void {
     this.changingScripture = true;
     this.changingAnswers = true;
+    this.message = 'incorrect';
     //this.pagebooks = [];
     console.log('getting scripture');
     this.scv.getRandomScripture().then( (scripture) => {
@@ -54,15 +55,14 @@ export class ScriptureGuessComponent implements OnInit {
       this.changingAnswers = false
     } ) ;
   }
-
-
+  
   checkScripture(bookName:string) : void {
     this.answered = true;
     console.log(`checking ${bookName} against ${this.scripture.verses[0].book_name}`)
-    this.message = this.scripture.verses[0].book_name.includes(bookName) ? 'correct' : 'incorrect';
+    this.message = this.scripture.verses[0].book_name.includes(bookName) ? 'Correct!' : 'Incorrect';
   }
 
-  reset() : void{
+  reset() : void {
     //this.message = '';
     this.getScripture();
     this.answered = false;
@@ -74,6 +74,15 @@ export class ScriptureGuessComponent implements OnInit {
 
   getButtonClasses() : string {
     return this.changingAnswers ? 'animated fadeOut' : 'animated fadeIn'
+  }
+
+  getMessageClasses() : string {
+    if (this.answered) {
+      return this.message === "Correct!" ? 'animated tada' : 'animated jello';
+    }
+    else {
+      return '';
+    }
   }
 
   ngOnInit() {
