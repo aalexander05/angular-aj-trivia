@@ -12,7 +12,7 @@ export class ScriptureStartComponent implements OnInit {
   constructor() { }
 
   gameMode : GameMode = {
-    answerCount : 5,
+    answerCount : 4,
     curatedScriptues : []
   }
 
