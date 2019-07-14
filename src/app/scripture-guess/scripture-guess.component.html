@@ -4,7 +4,7 @@
 <div style='text-align: center;' class='m-1'>
   <button type='button' class='btn btn-outline-info' (click)='reset()'>New Scripture</button>
 
-  <p [style.visibility]="message === 'Correct!'?'':'hidden'"> {{scripture.reference}}</p>
+  <p [style.visibility]="message === 'Correct!'?'':'hidden'"> {{scripture?scripture.reference:''}}</p>
   <h3 *ngIf='scripture' [ngClass]='getScriptureClasses()' style='text-align:center;'> {{scripture.text}}</h3>
 
   <p 

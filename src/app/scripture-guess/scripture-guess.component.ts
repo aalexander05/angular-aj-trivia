@@ -7,8 +7,7 @@ import { ScriptureService } from './scripture.service'
 @Component({
   selector: 'app-scripture-guess',
   templateUrl: './scripture-guess.component.html',
-  styleUrls: ['./scripture-guess.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./scripture-guess.component.css']
 })
 export class ScriptureGuessComponent implements OnInit {
 
