@@ -7,7 +7,8 @@ import { ScriptureService } from './scripture.service'
 @Component({
   selector: 'app-scripture-guess',
   templateUrl: './scripture-guess.component.html',
-  styleUrls: ['./scripture-guess.component.css']
+  styleUrls: ['./scripture-guess.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScriptureGuessComponent implements OnInit {
 
@@ -18,10 +19,11 @@ export class ScriptureGuessComponent implements OnInit {
   changingAnswers = false;
   answered = false;
 
-  @Input() gameMode : GameMode = {
-    answerCount : 4,
-    curatedScriptures: []
-  };
+  @Input() gameMode : GameMode 
+  // = {
+  //   answerCount : 4,
+  //   curatedScriptures: []
+  // };
 
   constructor(private scv : ScriptureService) { }
 
@@ -47,13 +49,26 @@ export class ScriptureGuessComponent implements OnInit {
     //   console.log('We GOT BOOKS');
     //   this.pagebooks = books; 
     // } ) ;
-    let correctAnswer = this.scripture.verses[0].book_name;
-    this.scv.getAnswerOptions(this.gameMode.answerCount, correctAnswer).then( (books) => { 
-      console.log('We GOT BOOKS');
-      console.log(books);
-      this.pagebooks = books; 
-      this.changingAnswers = false
-    } ) ;
+    console.log(this.gameMode);
+    if (this.gameMode.answerCount < 66) {
+
+      
+      let correctAnswer = this.scripture.verses[0].book_name;
+      this.scv.getAnswerOptions(this.gameMode.answerCount, correctAnswer).then( (books) => { 
+        console.log('We GOT BOOKS');
+        console.log(books);
+        this.pagebooks = books; 
+        this.changingAnswers = false
+      } ) ;
+    } 
+    else {
+      this.scv.getBookInfo().then( (books) => { 
+        console.log('We GOT BOOKS');
+        console.log(books);
+        this.pagebooks = books.map(o => o.bookName); 
+        this.changingAnswers = false
+      } ) ;
+    }
   }
   
   checkScripture(bookName:string) : void {

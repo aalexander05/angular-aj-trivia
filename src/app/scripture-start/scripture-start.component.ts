@@ -12,13 +12,18 @@ export class ScriptureStartComponent implements OnInit {
   constructor() { }
 
   gameMode : GameMode = {
-    answerCount : 4,
+    answerCount : 3,
     curatedScriptues : []
   }
 
   started = false;
 
   start() : void {
+    this.started = true;
+  }
+
+  startAllBooks() : void {
+    this.gameMode.answerCount = 66;
     this.started = true;
   }
 
