@@ -25,11 +25,12 @@ import { ScriptureStartComponent } from './scripture-start/scripture-start.compo
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: 'home', component: HomeComponent },
-      { path: 'trivia', component: AboutComponent },
-      { path: 'cards', component: CardsComponent },
-      { path: 'reactive', component: ReactiveComponent},
-      { path: 'guess-that-scripture', component: ScriptureStartComponent }
+      { path: 'home', component: ScriptureStartComponent },
+      // { path: 'trivia', component: AboutComponent },
+      // { path: 'cards', component: CardsComponent },
+      // { path: 'reactive', component: ReactiveComponent},
+      { path: 'guess-that-scripture', component: ScriptureStartComponent },
+      { path: '**', component: ScriptureStartComponent }
     ]) 
   ],
   declarations: [ AppComponent, HelloComponent, MenuComponent, HomeComponent, AboutComponent, CardsComponent, ReactiveComponent, ScriptureGuessComponent, ScriptureStartComponent ],
