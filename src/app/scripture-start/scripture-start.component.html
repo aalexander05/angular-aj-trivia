@@ -1,10 +1,14 @@
 <br/>
 <div style='text-align:center;' class='m-3'>
-  <h5 > Select <b>Quickplay</b> to begin</h5>
+  <h5 *ngIf='!started'> Select your game mode</h5>
   <app-scripture-guess *ngIf='started' [gameMode]='gameMode' ></app-scripture-guess>
   <div *ngIf='!started' >
-    <button type='button' class='btn btn-primary m-1' (click)='start()'>Quick Play</button>  
-    <!-- <button type='button' class='btn btn-primary m-1' (click)='start()'>All 66 Books!</button>   -->
+    <button type='button' class='btn btn-primary m-1' (click)='start()'>Quick Play</button>
+    <p>Jump right in. Random Scriptures from the whole Bible.</p>  
+    <button type='button' class='btn btn-primary m-1' (click)='startEasy()'>Easy Mode</button>  
+    <p>Start here if you're new.</p>
+    <button type='button' class='btn btn-primary m-1' (click)='startAllBooks()'>All 66 Books!</button>
+    <p>This one is difficult. Recommended for the scholarly.</p>  
   </div>
 
 </div>

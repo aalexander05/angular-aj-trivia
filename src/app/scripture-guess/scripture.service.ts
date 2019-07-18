@@ -75,6 +75,19 @@ export class ScriptureService {
 
   }
 
+  async getCuratedScripture(scripture: string) : Promise<Scripture> {
+    this.books = await this.getBookInfo();
+    this.currentBook = "Genesis";
+    var url = this.baseUrl;
+    url = url + scripture;
+    // if (translation !== '') {
+    //   url = url + '?translation=' + translation;
+    // }
+
+    console.log(url);
+    return this.http.get<Scripture>(url).toPromise();
+  }
+
   async getAnswerOptions(answerCount: number, correctAnswer: string) : Promise<string[]> {
     var answers: string[] = [correctAnswer];
     let books = await this.getBookInfo();

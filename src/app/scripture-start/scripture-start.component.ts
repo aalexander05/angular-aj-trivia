@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {GameMode} from '../scripture-guess/scripture';
+import {GameMode, CuratedScripture} from '../scripture-guess/scripture';
 
 @Component({
   selector: 'app-scripture-start',
@@ -9,16 +9,34 @@ import {GameMode} from '../scripture-guess/scripture';
 })
 export class ScriptureStartComponent implements OnInit {
 
+  // remove later
+  curatedScriptures : CuratedScripture[] = 
+    [
+      { scripture: "Genesis1:1" },
+      { scripture: "Genesis3:1" },
+      { scripture: "Genesis3:2" },
+      { scripture: "Genesis3:3" },
+      { scripture: "Genesis3:4" },
+      { scripture: "Genesis3:5" },
+      { scripture: "Genesis3:15" }
+  ];  
+
   constructor() { }
 
   gameMode : GameMode = {
     answerCount : 4,
-    curatedScriptues : []
+    curatedScriptures : []
   }
 
   started = false;
 
   start() : void {
+    this.started = true;
+  }
+
+  startEasy() : void {
+    this.gameMode.curatedScriptures = this.curatedScriptures;
+    this.gameMode.answerCount = 3;
     this.started = true;
   }
 

@@ -18,7 +18,16 @@ export class ScriptureGuessComponent implements OnInit {
   changingAnswers = false;
   answered = false;
 
-  @Input() gameMode : GameMode 
+  private _gameMode : GameMode
+
+  get gameMode(): GameMode {
+    return this._gameMode;
+  }
+
+  @Input() 
+  set gameMode(gameMode:GameMode) {
+    this._gameMode = gameMode;
+  }
   // = {
   //   answerCount : 4,
   //   curatedScriptures: []
@@ -32,13 +41,31 @@ export class ScriptureGuessComponent implements OnInit {
     this.message = 'incorrect';
     //this.pagebooks = [];
     console.log('getting scripture');
-    this.scv.getRandomScripture().then( (scripture) => {
-      console.log('we got a scripture');
-      console.log(scripture);
-      this.scripture = scripture;
-      this.getBooks();
-      this.changingScripture = false;
-    })
+
+    if (this.gameMode.curatedScriptures.length > 0) {
+      let curatedScripture = this.gameMode.curatedScriptures[Math.floor(Math.random() * this.gameMode.curatedScriptures.length)].scripture;
+      console.log(this.gameMode.curatedScriptures);
+      console.log(`about to get this scripture ${curatedScripture}`)
+      this.scv.getCuratedScripture(curatedScripture).then ( (scripture) => {
+        console.log('we got a curated scripture');
+        console.log(scripture);
+        this.scripture = scripture;
+        this.getBooks();
+        this.changingScripture = false
+      });
+    }
+    else {
+      this.scv.getRandomScripture().then( (scripture) => {
+        console.log('we got a scripture');
+        console.log(scripture);
+        this.scripture = scripture;
+        this.getBooks();
+        this.changingScripture = false
+      });
+
+    }
+
+    
   }
 
   getBooks() : void {
