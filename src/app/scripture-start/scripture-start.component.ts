@@ -12,13 +12,51 @@ export class ScriptureStartComponent implements OnInit {
   // remove later
   curatedScriptures : CuratedScripture[] = 
     [
-      { scripture: "Genesis1:1" },
-      { scripture: "Genesis3:1" },
-      { scripture: "Genesis3:2" },
-      { scripture: "Genesis3:3" },
-      { scripture: "Genesis3:4" },
-      { scripture: "Genesis3:5" },
-      { scripture: "Genesis3:15" }
+      { book: "Genesis",
+        chapter: 1,
+        verse : 1 
+      },
+      { book: "Genesis",
+        chapter: 1,
+        verse : 2 
+      },
+      { book: "Genesis",
+        chapter: 3,
+        verse : 1 
+      },
+      { book: "Genesis",
+        chapter: 3,
+        verse : 15 
+      },
+      { book: "John",
+        chapter: 3,
+        verse : 16 
+      },
+      { book: "John",
+        chapter: 17,
+        verse : 3 
+      },
+      { book: "Matthew",
+        chapter: 24,
+        verse : 14 
+      },
+      { book: "Matthew",
+        chapter: 6,
+        verse : 9 
+      },
+      { book: "Revelation",
+        chapter: 21,
+        verse : 4 
+      },
+      { book: "Ezekiel",
+        chapter: 18,
+        verse : 4 
+      },
+      { book: "Proverbs",
+        chapter: 3,
+        verse : 5
+      }
+
   ];  
 
   constructor() { }
@@ -36,7 +74,7 @@ export class ScriptureStartComponent implements OnInit {
 
   startEasy() : void {
     this.gameMode.curatedScriptures = this.curatedScriptures;
-    this.gameMode.answerCount = 3;
+    this.gameMode.answerCount = 2;
     this.started = true;
   }
 

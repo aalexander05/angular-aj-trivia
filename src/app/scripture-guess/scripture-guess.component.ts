@@ -43,10 +43,10 @@ export class ScriptureGuessComponent implements OnInit {
     console.log('getting scripture');
 
     if (this.gameMode.curatedScriptures.length > 0) {
-      let curatedScripture = this.gameMode.curatedScriptures[Math.floor(Math.random() * this.gameMode.curatedScriptures.length)].scripture;
+      let curatedScripture = this.gameMode.curatedScriptures[Math.floor(Math.random() * this.gameMode.curatedScriptures.length)];
       console.log(this.gameMode.curatedScriptures);
       console.log(`about to get this scripture ${curatedScripture}`)
-      this.scv.getCuratedScripture(curatedScripture).then ( (scripture) => {
+      this.scv.getCuratedScripture(curatedScripture.book, curatedScripture.chapter, curatedScripture.verse).then ( (scripture) => {
         console.log('we got a curated scripture');
         console.log(scripture);
         this.scripture = scripture;

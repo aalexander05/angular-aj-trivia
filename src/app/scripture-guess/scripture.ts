@@ -15,16 +15,16 @@ export interface Scripture {
   translation_note: string;
 }
 
-// export interface CuratedScripture {
-//   book: string;
-//   chapter: number;
-//   verse: number;
-
-// }
-
 export interface CuratedScripture {
-  scripture: string
+  book: string;
+  chapter: number;
+  verse: number;
+
 }
+
+// export interface CuratedScripture {
+//   scripture: string
+// }
 
 export interface GameMode {
 

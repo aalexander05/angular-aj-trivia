@@ -29,7 +29,8 @@ import { ScriptureStartComponent } from './scripture-start/scripture-start.compo
       // { path: 'trivia', component: AboutComponent },
       // { path: 'cards', component: CardsComponent },
       // { path: 'reactive', component: ReactiveComponent},
-      { path: 'guess-that-scripture', component: ScriptureStartComponent }
+      { path: 'guess-that-scripture', component: ScriptureStartComponent },
+      { path: '', component: ScriptureStartComponent }
       // { path: '**', component: ScriptureStartComponent }
     ]) 
   ],

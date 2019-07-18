@@ -75,15 +75,18 @@ export class ScriptureService {
 
   }
 
-  async getCuratedScripture(scripture: string) : Promise<Scripture> {
+  async getCuratedScripture(book: string, chapter: number, verse: number,) : Promise<Scripture> {
     this.books = await this.getBookInfo();
-    this.currentBook = "Genesis";
+    this.currentBook = chapter;
     var url = this.baseUrl;
-    url = url + scripture;
+    var chapterValue :string = chapter === 0 ? '':chapter.toString();
+    var verseValue :string = verse === 0 ? '' : ':' + verse;
+
+    url = url + book + chapterValue + verseValue;
+
     // if (translation !== '') {
     //   url = url + '?translation=' + translation;
     // }
-
     console.log(url);
     return this.http.get<Scripture>(url).toPromise();
   }
